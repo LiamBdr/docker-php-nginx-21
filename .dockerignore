@@ -1,0 +1,44 @@
+# Fichiers Git
+.git
+.gitignore
+.gitattributes
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# Documentation
+README.md
+docs/
+
+# Environnement local
+.env.local
+.env.*.local
+
+# Cache et logs Symfony
+var/cache/*
+var/log/*
+!var/cache/.gitkeep
+!var/log/.gitkeep
+
+# Vendors
+vendor/
+
+# Node modules
+node_modules/
+
+# Tests
+tests/
+phpunit.xml
+phpunit.xml.dist
+.phpunit.result.cache
+
+# Outils de qualité de code
+.php-cs-fixer.cache
+.phpstan/
+phpstan.neon
+
+# Docker compose override (config locale)
+compose.override.yaml
