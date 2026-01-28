@@ -22,11 +22,8 @@ restart: down up ## Redémarre les conteneurs
 logs: ## Affiche les logs des conteneurs
 	$(DOCKER_COMPOSE) logs -f
 
-logs-php: ## Affiche les logs PHP uniquement
+logs-php: ## Affiche les logs PHP/Apache
 	$(DOCKER_COMPOSE) logs -f php
-
-logs-nginx: ## Affiche les logs Nginx uniquement
-	$(DOCKER_COMPOSE) logs -f nginx
 
 ## —— PHP / Symfony ——
 shell: ## Ouvre un shell dans le conteneur PHP
@@ -41,11 +38,17 @@ console: ## Exécute une commande Symfony console (ex: make console c="cache:cle
 cache-clear: ## Vide le cache Symfony
 	$(EXEC_PHP) php bin/console cache:clear
 
+## —— SSL ——
+ssl-regen: ## Régénère le certificat SSL auto-signé
+	$(EXEC_PHP) rm -f /etc/apache2/ssl/server.crt /etc/apache2/ssl/server.key
+	$(DOCKER_COMPOSE) restart php
+
 ## —— Installation ——
 install: up ## Installation complète du projet
 	$(EXEC_PHP) composer install
 	@echo "\033[32m✓ Installation terminée !\033[0m"
-	@echo "\033[33m→ Accédez à l'application : http://localhost:$${APP_PORT:-8080}\033[0m"
+	@echo "\033[33m→ HTTP  : http://localhost:$${APP_PORT:-8080}\033[0m"
+	@echo "\033[33m→ HTTPS : https://localhost:$${APP_SSL_PORT:-8443}\033[0m"
 
 ## —— Debug ——
 ps: ## Liste les conteneurs en cours d'exécution
