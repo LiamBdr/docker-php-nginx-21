@@ -3,13 +3,10 @@ services:
     build: .
     volumes:
       - .:/app
-      # Modèles téléchargés localement
       - ./models:/app/models
-    ports:
-      - "8888:8888"
+    environment:
+      - HF_ENDPOINT=${HF_ENDPOINT}
+      - HF_TOKEN=${HF_TOKEN}
     stdin_open: true
     tty: true
     working_dir: /app
-
-volumes:
-  hf-cache:

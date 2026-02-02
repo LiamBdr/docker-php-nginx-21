@@ -4,7 +4,8 @@ WORKDIR /app
 
 RUN pip install --no-cache-dir \
     torch --index-url https://download.pytorch.org/whl/cpu \
-    transformers \
-    accelerate
+    mistral_inference \
+    mistral_common \
+    huggingface_hub
 
 CMD ["bash"]
